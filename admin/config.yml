@@ -4,7 +4,6 @@ backend:
   branch: main # Branch utama Anda
   # Mengarah ke URL Worker Anda yang aktif (Tanpa tanda kurung siku [] ataupun tanda / di akhir)
   base_url: https://dry-thunder-93ae.agusgp2-3-ag.workers.dev
-
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
