@@ -2,14 +2,16 @@ backend:
   name: github
   repo: USERNAME_GITHUB_ANDA/website-instan-saya # Ganti dengan username dan nama repo Anda
   branch: main # Branch utama Anda
+  # TINGGALKAN NETLIFY! Kita arahkan ke Worker buatan sendiri di bawah ini:
+  base_url: [https://dry-thunder-93ae.agusgp2-3-ag.workers.dev](https://dry-thunder-93ae.agusgp2-3-ag.workers.dev) # Mengarah ke Worker Anda tanpa tanda / di akhir
 
-media_folder: "images/uploads" # Tempat menyimpan gambar upload-an CMS
+media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
 collections:
   - name: "blog"
     label: "Blog Post"
-    folder: "posts" # CMS akan otomatis membuat folder "posts" untuk tulisan Anda
+    folder: "posts"
     create: true
     fields:
       - { label: "Title", name: "title", widget: "string" }
