@@ -2,8 +2,9 @@ backend:
   name: github
   repo: harischandraagustina/personalweb # Sudah disesuaikan dengan GitHub Anda
   branch: main # Branch utama Anda
-  # Mengarah ke URL Worker Anda yang aktif (Tanpa tanda kurung siku [] ataupun tanda / di akhir)
-  base_url: https://dry-thunder-93ae.agusgp2-3-ag.workers.dev
+  # Mengarah ke URL Worker Anda yang aktif
+  base_url: "https://dry-thunder-93ae.agusgp2-3-ag.workers.dev"
+
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
 
