@@ -1,9 +1,9 @@
 backend:
   name: github
-  repo: USERNAME_GITHUB_ANDA/website-instan-saya # Ganti dengan username dan nama repo Anda
+  repo: harischandraagustina/personalweb # Sudah disesuaikan dengan GitHub Anda
   branch: main # Branch utama Anda
-  # TINGGALKAN NETLIFY! Kita arahkan ke Worker buatan sendiri di bawah ini:
-  base_url: [https://dry-thunder-93ae.agusgp2-3-ag.workers.dev](https://dry-thunder-93ae.agusgp2-3-ag.workers.dev) # Mengarah ke Worker Anda tanpa tanda / di akhir
+  # Mengarah ke URL Worker Anda yang aktif (Tanpa tanda kurung siku [] ataupun tanda / di akhir)
+  base_url: [https://dry-thunder-93ae.agusgp2-3-ag.workers.dev](https://dry-thunder-93ae.agusgp2-3-ag.workers.dev)
 
 media_folder: "images/uploads"
 public_folder: "/images/uploads"
