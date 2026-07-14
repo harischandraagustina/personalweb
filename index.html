@@ -1,17 +1,45 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Website Instan Saya</title>
-    <!-- Tailwind CSS CDN (Membuat website bagus secara instan) -->
-    <script src="https://cdn.tailwindcss.com"></script>
-</head>
-<body class="bg-gray-50 text-gray-800 font-sans">
-    <div class="max-w-4xl mx-auto px-4 py-12 text-center">
-        <h1 class="text-4xl font-extrabold text-blue-600 mb-4">Halo Dunia! 🚀</h1>
-        <p class="text-lg text-gray-600 mb-8">Website ini dibuat 100% online langsung lewat browser, tanpa install apa pun di komputer lokal.</p>
-        <a href="/admin/" class="bg-blue-600 text-white px-6 py-3 rounded-lg shadow-md hover:bg-blue-700 transition">Masuk Panel Admin</a>
-    </div>
-</body>
-</html>
+<!-- AREA DAFTAR BLOG (LIST VIEW) -->
+<div id="list-view" class="space-y-8">
+  <div class="border-b border-slate-200 pb-6">
+    <h1 class="text-3xl font-extrabold text-slate-900 tracking-tight sm:text-4xl">Artikel & Jurnal</h1>
+    <p class="text-slate-500 mt-2">Selamat datang di tempat saya berbagi ide, tutorial, dan catatan perkembangan website.</p>
+  </div>
+
+  <!-- Spinner Loading -->
+  <div id="loading" class="flex flex-col items-center justify-center py-12 text-slate-400 gap-3">
+    <div class="w-8 h-8 border-4 border-indigo-600 border-t-transparent rounded-full animate-spin"></div>
+    <p class="text-xs font-medium">Sedang memuat tulisan...</p>
+  </div>
+
+  <!-- Grid Daftar Artikel -->
+  <div id="posts-grid" class="grid gap-6 md:grid-cols-2 hidden">
+    <!-- Card akan masuk ke sini secara otomatis menggunakan JS -->
+  </div>
+
+  <!-- Pesan jika artikel kosong -->
+  <div id="empty-state" class="hidden text-center py-12 text-slate-400">
+    <i data-lucide="book-open" class="w-12 h-12 mx-auto mb-3 opacity-40"></i>
+    <p class="font-medium text-slate-600">Belum ada artikel terbit</p>
+    <p class="text-xs mt-1">Silakan masuk ke panel admin dan tulis artikel pertama Anda!</p>
+  </div>
+</div>
+
+<!-- AREA BACA ARTIKEL (SINGLE VIEW) -->
+<div id="single-view" class="hidden">
+  <button onclick="router()" class="mb-6 inline-flex items-center gap-1.5 text-sm text-slate-500 hover:text-indigo-600 font-medium">
+    <i data-lucide="arrow-left" class="w-4 h-4"></i> Kembali ke Beranda
+  </button>
+
+  <article class="bg-white border border-slate-200 rounded-2xl p-6 sm:p-10 shadow-sm">
+    <header class="border-b border-slate-100 pb-6 mb-6">
+      <h1 id="post-title" class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight leading-tight"></h1>
+      <div class="flex items-center gap-2 text-xs text-slate-400 mt-4 font-medium">
+        <i data-lucide="calendar" class="w-3.5 h-3.5"></i>
+        <span id="post-date"></span>
+      </div>
+    </header>
+
+    <!-- Tempat Konten Markdown Dirender -->
+    <div id="post-body" class="prose max-w-none"></div>
+  </article>
+</div>
