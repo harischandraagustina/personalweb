@@ -4,30 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Harchana World</title>
-  <!-- Google Fonts: Serif untuk judul, Sans-serif untuk isi -->
   <link href="https://fonts.googleapis.com/css2?family=Merriweather:wght@700;900&family=Inter:wght@400;500&display=swap" rel="stylesheet">
-  
   <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          fontFamily: {
-            // Kita atur font khusus di sini
-            serif: ['Merriweather', 'serif'],
-            sans: ['Inter', 'sans-serif'],
-          }
-        }
-      }
-    }
-  </script>
-  
   <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/js-yaml/4.1.0/js-yaml.min.js"></script>
   <script src="https://unpkg.com/lucide@latest"></script>
   
   <style>
-    /* Styling agar tipografi lebih elegan */
     .prose h1 { font-family: 'Merriweather', serif; font-size: 2.5rem; line-height: 1.2; color: #0f172a; }
     .prose p { font-family: 'Inter', sans-serif; color: #475569; margin-bottom: 1.5rem; line-height: 1.8; }
   </style>
@@ -37,15 +20,24 @@
   <!-- HEADER -->
   <header class="bg-white border-b border-slate-200 sticky top-0 z-50">
     <div class="max-w-6xl mx-auto px-4 py-4 flex items-center justify-between">
-      <a href="#" class="text-2xl font-black font-serif text-slate-900 tracking-tighter">Harchana World</a>
-      <div class="flex items-center gap-4 text-sm font-medium">
-        <a href="#" class="text-slate-600 hover:text-indigo-600">Home</a>
-        <a href="/admin/" class="text-indigo-600 font-bold">Admin</a>
+      <a href="/" class="text-2xl font-black font-serif text-slate-900 tracking-tighter">Harchana World</a>
+      
+      <div class="flex items-center gap-4">
+        <!-- Search Bar -->
+        <div class="relative hidden sm:block">
+          <input 
+            type="text" 
+            id="search-input"
+            placeholder="Cari artikel..." 
+            class="pl-4 pr-10 py-1.5 border border-slate-300 rounded-full text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 w-48"
+            oninput="handleSearch(this.value)"
+          >
+        </div>
+        <a href="/admin/" class="text-indigo-600 font-bold text-sm">Admin</a>
       </div>
     </div>
   </header>
 
-  <!-- MAIN GRID CONTAINER -->
   <main class="max-w-6xl mx-auto px-4 py-10 grid grid-cols-1 md:grid-cols-3 gap-12">
     
     <section class="md:col-span-2 space-y-8">
@@ -55,26 +47,23 @@
       </div>
 
       <div id="single-view" class="hidden">
-        <button onclick="window.location.hash = ''" class="mb-6 text-sm font-semibold text-indigo-600 hover:underline">← Kembali ke Beranda</button>
-        <article class="bg-white p-8 md:p-12 rounded-lg border border-slate-200 shadow-sm">
+        <button onclick="window.location.hash = ''" class="mb-6 text-sm font-semibold text-indigo-600 hover:underline">← Kembali</button>
+        <article class="bg-white p-8 rounded-lg border border-slate-200 shadow-sm">
           <h1 id="post-title" class="font-serif"></h1>
           <div id="post-body" class="prose max-w-none mt-8"></div>
         </article>
       </div>
     </section>
 
-    <!-- SIDEBAR -->
     <aside class="space-y-8">
       <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
         <h3 class="font-bold text-slate-900 mb-3 border-b pb-2 uppercase tracking-widest text-xs">Reading Philosophy</h3>
         <p class="text-sm text-slate-500 italic">"Menjelajahi keheningan kognitif dan refleksi pemikiran di dalam ruang digital yang mandiri."</p>
       </div>
-
       <div class="bg-white p-6 rounded-lg border border-slate-200 shadow-sm">
         <h3 class="font-bold text-slate-900 mb-3 border-b pb-2 uppercase tracking-widest text-xs">Website Visitors</h3>
-        <div class="space-y-3">
-          <div class="flex justify-between text-sm"><span>Total Views:</span> <span class="font-mono font-bold">25,480</span></div>
-          <div class="flex justify-between text-sm"><span>Reading:</span> <span class="text-emerald-600 font-bold">3 active</span></div>
+        <div class="space-y-3 text-sm">
+          <div class="flex justify-between"><span>Total:</span> <span class="font-mono font-bold">25,480</span></div>
         </div>
       </div>
     </aside>
@@ -96,17 +85,28 @@
           const meta = parts.length >= 3 ? jsyaml.load(parts[1]) : {};
           cachedPosts.push({ slug: file.name.replace('.md', ''), title: meta.title || 'Untitled', body: parts.slice(2).join('---'), date: meta.date });
         }
-        
-        const grid = document.getElementById('posts-grid');
-        grid.innerHTML = cachedPosts.map(p => `
-          <div onclick="location.hash = '#/blog/${p.slug}'" class="group cursor-pointer">
-            <h2 class="text-2xl font-serif font-bold text-slate-900 group-hover:text-indigo-600 transition">${p.title}</h2>
-            <p class="text-slate-500 mt-2 line-clamp-2">Klik untuk membaca tulisan selengkapnya...</p>
-          </div>
-        `).join('');
+        renderPosts(cachedPosts);
         document.getElementById('loading').classList.add('hidden');
-        grid.classList.remove('hidden');
+        document.getElementById('posts-grid').classList.remove('hidden');
       } catch (e) { console.error(e); }
+    }
+
+    function renderPosts(posts) {
+      const grid = document.getElementById('posts-grid');
+      grid.innerHTML = posts.map(p => `
+        <div onclick="location.hash = '#/blog/${p.slug}'" class="group cursor-pointer">
+          <h2 class="text-2xl font-serif font-bold text-slate-900 group-hover:text-indigo-600 transition">${p.title}</h2>
+          <p class="text-slate-500 mt-2">Klik untuk membaca tulisan selengkapnya...</p>
+        </div>
+      `).join('');
+    }
+
+    function handleSearch(query) {
+      const filtered = cachedPosts.filter(p => 
+        p.title.toLowerCase().includes(query.toLowerCase()) || 
+        p.body.toLowerCase().includes(query.toLowerCase())
+      );
+      renderPosts(filtered);
     }
 
     function router() {
